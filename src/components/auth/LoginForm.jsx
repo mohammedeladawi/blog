@@ -6,6 +6,7 @@ import { AuthContext } from "../../context/AuthContext";
 
 const LoginForm = () => {
   const { login } = useContext(AuthContext);
+  
   const formik = useFormik({
     validateOnMount: true,
     initialValues: {
@@ -54,7 +55,7 @@ const LoginForm = () => {
           />
           {formik.touched.password && formik.errors.password && (
             <Form.Text className="text-danger">
-              {formik.errors.password}{" "}
+              {formik.errors.password}
             </Form.Text>
           )}
         </Form.Group>

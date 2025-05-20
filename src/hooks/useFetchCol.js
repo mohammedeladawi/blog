@@ -19,7 +19,7 @@ const useFetchCol = (colName) => {
       const colRef = collection(db, colName)
       const q = query(colRef, orderBy('createdAt', 'desc'), limit(12))
       const res = await getDocs(q)
-
+      
       const resData = res.docs.map(doc => {
         const docData = doc.data()
         return {

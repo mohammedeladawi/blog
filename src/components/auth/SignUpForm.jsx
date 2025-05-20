@@ -6,6 +6,7 @@ import { AuthContext } from "../../context/AuthContext";
 
 const SignUpForm = () => {
   const { signUp } = useContext(AuthContext);
+  
   const formik = useFormik({
     validateOnMount: true,
     initialValues: {
@@ -32,6 +33,7 @@ const SignUpForm = () => {
       }
     },
   });
+  
   return (
     <Card className="p-4 bg-light">
       <Form onSubmit={formik.handleSubmit}>
@@ -62,6 +64,7 @@ const SignUpForm = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
+
           {formik.touched.email && formik.errors.email && (
             <Form.Text className="text-danger">{formik.errors.email}</Form.Text>
           )}
@@ -96,6 +99,7 @@ const SignUpForm = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
+          
           {formik.touched.confirmPassword && formik.errors.confirmPassword && (
             <Form.Text className="text-danger">
               {formik.errors.confirmPassword}
@@ -113,6 +117,7 @@ const SignUpForm = () => {
             onBlur={formik.handleBlur}
           />
         </Form.Group>
+    
         <Button
           className="w-100"
           variant="primary"

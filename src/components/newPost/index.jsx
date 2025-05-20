@@ -7,6 +7,7 @@ import "react-quill/dist/quill.snow.css";
 import { useNavigate } from "react-router-dom";
 import { FirebaseContext } from "../../context/FirebaseContext";
 import { PostsContext } from "../../context/PostsContext";
+import { AuthContext } from "../../context/AuthContext";
 
 const MainNewPost = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const MainNewPost = () => {
   const [loading, setLoading] = useState(false);
   const { db } = useContext(FirebaseContext);
   const { refetch } = useContext(PostsContext);
+  const {user } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,7 +36,7 @@ const MainNewPost = () => {
         slug,
         image,
         body,
-        user: "Hossam",
+        user: user.email.split("@")[0],
         createdAt: serverTimestamp(),
       });
       e.target.reset();
@@ -48,6 +50,7 @@ const MainNewPost = () => {
 
     setLoading(false);
   };
+
   return (
     <section className="py-5">
       <Container>
@@ -64,6 +67,7 @@ const MainNewPost = () => {
                   placeholder="Enter post title"
                 />
               </Form.Group>
+              
               <Form.Group className="mb-3" controlId="formExcert">
                 <Form.Label>Post Excert</Form.Label>
                 <Form.Control
@@ -72,6 +76,7 @@ const MainNewPost = () => {
                   placeholder="Enter post excert"
                 />
               </Form.Group>
+              
               <Form.Group className="mb-3" controlId="formImage">
                 <Form.Label>Post Image</Form.Label>
                 <Form.Control
@@ -80,7 +85,9 @@ const MainNewPost = () => {
                   placeholder="Enter image url"
                 />
               </Form.Group>
+              
               <ReactQuill theme="snow" value={body} onChange={setBody} />
+             
               <Button type="submit" className="mt-4 w-100" disabled={loading}>
                 submit {loading ? "..." : ""}
               </Button>

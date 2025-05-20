@@ -29,6 +29,7 @@ const LatestPosts = () => {
             </Spinner>
           </div>
         ) : null}
+
         {error ? (
           <div>
             <Alert variant="danger">{error}</Alert>
@@ -51,7 +52,6 @@ const LatestPosts = () => {
             className="px-5"
             onClick={() => navigate("/blog")}
           >
-            {" "}
             see all
           </Button>
         </div>

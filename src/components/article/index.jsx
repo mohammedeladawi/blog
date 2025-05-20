@@ -35,8 +35,6 @@ const MainArticle = () => {
   if (error) return <Alert variant="danger"> {error}</Alert>;
   if (!data) return null;
 
-  console.log(data);
-
   return (
     <article className="article">
       <div className={styles.article_hero}>
@@ -47,10 +45,12 @@ const MainArticle = () => {
           <Card>
             <Card.Body>
               <Card.Title> {data.title} </Card.Title>
+              
               <Card.Subtitle className="mt-2 text-muted">
                 <small> By: {data.user}</small>
                 <small> {getDate(data.createdAt)} </small>
               </Card.Subtitle>
+              
               <div
                 className="mt-5"
                 dangerouslySetInnerHTML={{ __html: data.body }}

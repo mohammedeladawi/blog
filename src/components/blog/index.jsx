@@ -19,9 +19,9 @@ const MainBlog = () => {
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       const blogObserver = entries[0];
+      console.log(blogObserveRef.current)
       if (blogObserver.isIntersecting) {
         // fetch next data
-
         fetchNext();
       }
     }, {});
@@ -45,6 +45,7 @@ const MainBlog = () => {
             </Spinner>
           </div>
         ) : null}
+       
         {error ? (
           <div>
             <Alert variant="danger">{error}</Alert>
@@ -63,9 +64,7 @@ const MainBlog = () => {
 
         {fetching ? <p className="text-center"> loading ....</p> : null}
 
-        <div className="blog-observer" ref={blogObserveRef}>
-          {" "}
-        </div>
+        <div className="blog-observer" ref={blogObserveRef}></div>
       </Container>
     </section>
   );
