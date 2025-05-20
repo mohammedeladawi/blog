@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import {Route, Routes } from "react-router-dom";
 import AuthLayout from "../layouts/AuthLayout";
 import DefaultLayout from "../layouts/DefaultLayout";
 import Login from "../pages/auth/Login";
@@ -9,11 +8,9 @@ import Blog from "../pages/blog/Blog";
 import NewPost from "../pages/blog/NewPost";
 import Home from "../pages/Home";
 import NotFound from "../pages/NotFound";
-import { AuthContext } from "../context/AuthContext";
+import { ProtectedRoute, PublicRoute } from "./RouteGuards";
 
 const MainRouter = () => {
-  const { isAuth } = useContext(AuthContext);
-  console.log(isAuth);
   return (
     <Routes>
       <Route path="/" element={<DefaultLayout />}>
@@ -23,24 +20,13 @@ const MainRouter = () => {
 
       <Route path="/blog" element={<DefaultLayout />}>
         <Route index element={<Blog />} />
-        {isAuth ? (
-          <Route path="new" element={<NewPost />} />
-        ) : (
-          <Route path="new" element={<Navigate to="/login" replace />} />
-        )}
+        <Route path="new" element={<ProtectedRoute element={<NewPost />} />} />
         <Route path=":slug" element={<Article />} />
       </Route>
+      
       <Route path="/" element={<AuthLayout />}>
-        {!isAuth ? (
-          <Route path="login" element={<Login />} />
-        ) : (
-          <Route path="login" element={<Navigate to="/" replace />} />
-        )}
-        {!isAuth ? (
-          <Route path="signup" element={<SignUp />} />
-        ) : (
-          <Route path="signup" element={<Navigate to="/" replace />} />
-        )}
+          <Route path="login" element={<PublicRoute element={<Login />} />} />
+          <Route path="signup" element={<PublicRoute element={<SignUp />} />} />
       </Route>
     </Routes>
   );
